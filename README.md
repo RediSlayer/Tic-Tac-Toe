@@ -31,13 +31,15 @@ src/
 │   └── MinimaxIA.java          # Minimax AI (Model)
 └── vista/
     ├── PanelMenu.java          # Main menu screen (View)
-    └── PanelJuego.java         # Game board screen (View)
+    |── PanelJuego.java         # Game board screen (View)
+    └── Boton.java              # Class Bouton extended with JButton (View)
+
 ```
 
 | Layer | Classes | Responsibility |
 |-------|---------|----------------|
 | Model | `Tablero`, `MinimaxIA` | Game rules and AI decisions |
-| View | `PanelMenu`, `PanelJuego` | Graphical interface |
+| View | `PanelMenu`, `PanelJuego`, `Boton` | Graphical interface |
 | Controller | `VentanaPrincipal` | Connects the view with the model |
 
 ## 🎮 How to Run
