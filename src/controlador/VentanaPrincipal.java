@@ -42,13 +42,6 @@ public class VentanaPrincipal extends JFrame{
         panelMenu = new PanelMenu();
         panelJuego = new PanelJuego();
 
-        //Registra donde se hace click
-        panelJuego.setCasillaClickListener((fila, columna) -> {
-            GestionarJugada(fila, columna);
-        });
-
-        //Registra el click del botón "Menú Principal" (antes no estaba registrado)
-        panelJuego.setMenuClickListener(() -> VolverAlMenu());
 
         contenedor.add(panelMenu, "MENU");
         contenedor.add(panelJuego, "JUEGO");
@@ -57,9 +50,19 @@ public class VentanaPrincipal extends JFrame{
         //3. Configurar los eventos de los botones del Menú
         panelMenu.getBtnLocal().addActionListener(e -> IniciarPartida("Local"));
         panelMenu.getBtnIA().addActionListener(e -> IniciarPartida("IA"));
+        panelMenu.getBtnLocal().addActionListener(e -> IniciarPartida("Local"));
+        panelMenu.getBtnIA().addActionListener(e -> IniciarPartida("IA"));
 
+        for (Boton[] fila : panelJuego.getBotones()) {
+            for (Boton b : fila) {
+                b.addActionListener(e -> GestionarJugada(b.getFila(), b.getColumna()));
+            }
+        }
+
+        panelJuego.btnVolverMenu.addActionListener(e -> VolverAlMenu());
         //4. Mostrar el menú
         cardLayout.show(contenedor, "MENU");
+
     }
 
     //Metodo para preparar una nueva partida según el modo elegido
@@ -124,9 +127,15 @@ public class VentanaPrincipal extends JFrame{
     }
 
     //Volver al menu
-    public void VolverAlMenu(){
+    public void VolverAlMenu() {
+        panelJuego.ReiniciarVista();
+        tablero.IniciarTablero();
+        turnoActual = 'X';
+        juegoTerminado = false;
         cardLayout.show(contenedor, "MENU");
     }
+
+
 
     //Se encarga de hacer jugar a la ia
     private void EjecutarTurnoIA(){
